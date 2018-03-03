@@ -1,3 +1,6 @@
+/**
+ * bleep, blorp, boop and stooof
+ * */
 window.onload = () => {
     
     'use strict';
@@ -19,40 +22,54 @@ window.onload = () => {
     );
     $w.loop(true);  
 }
+/**
+ * Tree
+ *
+ * init
+ * */
 var Tree = function(o) {
+    // set all the stuff from the object call
     this.i = o.i;
     this.x = o.x;
     this.y = o.y;
     this.minl = o.minl;
     this.maxl = o.maxl;
     this.max = o.max;
+    this.lw = o.lw;
     this.size = o.size;
     
     this.size -= 0.1;
     
-    this.lw = o.lw;//0.3;
+    
     this.count = 0;
     this.ctx = $w.canvas.get(this.i,'ctx');
     
-    if (o.dir == null) {
+    if (o.dir == null) { // if null then multiply direction by 120 degrees
         this.dir = 120 * o.z;
     }else{
         this.dir = o.dir;
     }
 }
+/**
+ * the loop
+ * */
 Tree.prototype.loop = function() {
 
+    // just use the global
     GLOBALCOUNT++;
     if (GLOBALCOUNT > GLOBALMAX) {
         $w.clearloop();
     }
+    // get a random color
     let c = $w.color.random();
+    
     // init a local x,y to hold before we add the new coord
     let x = this.x;
     let y = this.y;
 
     // set a random whole number +/- 15 degrees
     this.dir += Math.floor(Math.random() * 60) - 30;
+    
     // make sure we are inside a 360 degree coord system
     if (this.dir > 360)this.dir -= 360;
     if (this.dir < 0)this.dir += 360;
@@ -63,11 +80,15 @@ Tree.prototype.loop = function() {
     this.y = tmp[1];
     
     // draw the line
-    //this.line(this.i,x,y,this.x,this.y,FCOLOR,3,this.lw-0.3);
+    // let's copy a function from Wes Mantooth because I want to add opacity (not curretly available) 
     this.line(this.i,x,y,this.x,this.y,c,this.size,this.lw);
+    
+    // reduce the opacity
     this.lw-=0.03;
     
+    // roll some dice
     if ((Math.random() * 1000) > 600) {
+        // create a new segment
         $w.add_object_single(
             1,
             Tree,{

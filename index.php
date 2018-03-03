@@ -3,7 +3,7 @@
     ?><!DOCTYPE html>
     <html>
         <head>
-            <title>Page Title</title>
+            <title>Accidental Fractal Animation Javascript</title>
             <link href="css/style.css?<?php echo $dev; ?>" rel="stylesheet" />
         </head>
         <body>
@@ -17,7 +17,7 @@
                     $files = scandir($dir);
                     foreach($files as $file) {
                         if($file == "wes.mantooth.js" || (strpos($file,".js") === false)) {continue;}
-                        echo '<script src="'.$dir.$file.'?'.$dev.'&v=1.1.1"></script>'."\n";
+                        echo '<script src="'.$dir.$file.'?'.$dev.'&v=1.1.2"></script>'."\n";
                     }   
                 }
             ?>
